@@ -39,6 +39,9 @@ spec:
           value: {{ .Values.alerts.enabled | default "false" | quote }}
         - name: CLUSTER_NAME
           value: '{{ .Values.global.cattle.clusterName }}'
+        # Add this environment variable
+        - name: PREFIX_PATH
+          value: {{ .Values.global.prefixPath }}
         - name: CIS_OPERATOR_DEBUG
           value: '{{ .Values.image.cisoperator.debug }}'
         {{- if .Values.securityScanJob.overrideTolerations }}

@@ -166,6 +166,13 @@ func New(clusterscan *cisoperatorapiv1.ClusterScan, clusterscanprofile *cisopera
 								Path: `/run/log`,
 							},
 						},
+					}, {
+						Name: `etcd-data`,
+						VolumeSource: corev1.VolumeSource{
+							HostPath: &corev1.HostPathVolumeSource{
+								Path: imageConfig.PrefixPath,
+							},
+						},
 					},
 					},
 					Containers: []corev1.Container{{
@@ -229,6 +236,9 @@ func New(clusterscan *cisoperatorapiv1.ClusterScan, clusterscanprofile *cisopera
 						}, {
 							Name:      `run-log`,
 							MountPath: `/run/log/`,
+						}, {
+							Name:      `etcd-data`,
+							MountPath: imageConfig.PrefixPath,
 						}},
 					}},
 				},

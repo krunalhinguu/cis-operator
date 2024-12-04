@@ -46,6 +46,7 @@ global:
   kubectl:
     repository: rancher/kubectl
     tag: v1.30.5
+  prefixPath: ""
 
 alerts:
   enabled: false

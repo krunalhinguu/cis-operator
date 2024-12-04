@@ -52,6 +52,7 @@ var (
 	sonobuoyImageTag              string
 	clusterName                   string
 	securityScanJobTolerationsVal string
+	prefixPath                    string
 )
 
 func main() {
@@ -134,6 +135,12 @@ func main() {
 			Name:   "alertEnabled",
 			EnvVar: "CIS_ALERTS_ENABLED",
 		},
+		cli.StringFlag{
+			Name:        "prefix-path",
+			EnvVar:      "PREFIX_PATH",
+			Value:       "",
+			Destination: &prefixPath,
+		},
 	}
 	app.Action = run
 
@@ -181,6 +188,8 @@ func run(c *cli.Context) {
 		logrus.Fatalf("failed to find kubeconfig: %v", err)
 	}
 
+	prefixPath = c.String("prefix-path")
+
 	imgConfig := &cisoperatorapiv1.ScanImageConfig{
 		SecurityScanImage:    securityScanImage,
 		SecurityScanImageTag: securityScanImageTag,
@@ -189,6 +198,7 @@ func run(c *cli.Context) {
 		AlertSeverity:        alertSeverity,
 		ClusterName:          clusterName,
 		AlertEnabled:         c.Bool("alertEnabled"),
+		PrefixPath:           prefixPath,
 	}
 
 	if err := validateConfig(imgConfig); err != nil {
