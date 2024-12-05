@@ -41,8 +41,7 @@ func NewConfigMaps(clusterscan *cisoperatorapiv1.ClusterScan, clusterscanprofile
 		"appName":          "rancher-cis-benchmark",
 		"advertiseAddress": cisoperatorapiv1.ClusterScanService,
 		"sonobuoyImage":    imageConfig.SonobuoyImage + ":" + imageConfig.SonobuoyImageTag,
-		"sonobuoyVersion":  imageConfig.SonobuoyImageTag,
-		"prefixPath":       imageConfig.PrefixPath,
+		"sonobuoyVersion":  imageConfig.SonobuoyImageTag
 	}
 	configcm, err := generateConfigMap(clusterscan, "cisscanConfig.template", cisscanConfigTemplate, configdata)
 	if err != nil {
@@ -73,6 +72,7 @@ func NewConfigMaps(clusterscan *cisoperatorapiv1.ClusterScan, clusterscanprofile
 		"benchmarkVersion":             clusterscanprofile.Spec.BenchmarkVersion,
 		"isCustomBenchmark":            isCustomBenchmark,
 		"configDir":                    cisoperatorapiv1.CustomBenchmarkBaseDir,
+		"prefixPath":                   imageConfig.PrefixPath,
 		"customBenchmarkConfigMapName": customBenchmarkConfigMapName,
 		"customBenchmarkConfigMapData": customBenchmarkConfigMapData,
 	}
