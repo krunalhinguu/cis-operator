@@ -56,6 +56,9 @@ data:
       - hostPath:
           path: /run/log
         name: run-log
+      - hostPath:
+          path: {{ .prefixPath }}
+        name: etcd-data
       {{- if .isCustomBenchmark }}
       - configMap:
           defaultMode: 420
