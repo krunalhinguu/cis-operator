@@ -42,6 +42,7 @@ func NewConfigMaps(clusterscan *cisoperatorapiv1.ClusterScan, clusterscanprofile
 		"advertiseAddress": cisoperatorapiv1.ClusterScanService,
 		"sonobuoyImage":    imageConfig.SonobuoyImage + ":" + imageConfig.SonobuoyImageTag,
 		"sonobuoyVersion":  imageConfig.SonobuoyImageTag,
+		"prefixPath":       imageConfig.PrefixPath,
 	}
 	configcm, err := generateConfigMap(clusterscan, "cisscanConfig.template", cisscanConfigTemplate, configdata)
 	if err != nil {
